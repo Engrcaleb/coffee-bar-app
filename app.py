@@ -577,14 +577,19 @@ def main():
             drink_price, size, milk, selected_extras, pastry, quantity
         )
 
-        st.markdown(f"""
-        <div class="price-pill">
-            {icons.get(drink, "🍹")} &nbsp; {drink}
-            {"· " + size if size else ""}
-            &nbsp;|&nbsp; ₦{preview_unit:,.0f} × {quantity}
-            &nbsp;= &nbsp;<span style="font-size:1.1rem">₦{preview_total:,.0f}</span>
-        </div>
-        """, unsafe_allow_html=True)
+        drink_icon  = icons.get(drink, "🍹")
+        size_label  = f" · {size}" if size else ""
+        pill_html = (
+            f'<div class="price-pill">'
+            f'{drink_icon} {drink}{size_label}'
+            f' &nbsp;|&nbsp; '
+            f'&#8358;{preview_unit:,.0f} &times; {quantity}'
+            f' &nbsp;= &nbsp;'
+            f'<span style="font-size:1.15rem;font-weight:700">'
+            f'&#8358;{preview_total:,.0f}'
+            f'</span></div>'
+        )
+        st.markdown(pill_html, unsafe_allow_html=True)
 
         # ── Add to cart ───────────────────────────────────────────────────
         if st.button("🛒  Add to Cart", use_container_width=True, type="primary"):
